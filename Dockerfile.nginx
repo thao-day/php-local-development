@@ -1,0 +1,9 @@
+# Use the Nginx official image as a base
+FROM nginx:latest as nginx
+
+# Copy the Nginx configuration file
+COPY modified.nginx.conf /etc/nginx/nginx.conf
+
+# Expose ports
+EXPOSE 80
+EXPOSE 443

@@ -1,0 +1,44 @@
+version: '3'
+services:
+  user-svc:
+    build:
+      context: .
+      dockerfile: "Dockerfile.php81.fpm"
+    volumes:
+      - ../user-svc:/var/www
+    ports:
+      - 9000:9000
+    depends_on:
+      - mongodb
+      - redis
+
+  nginx:
+    build:
+      context: .
+      dockerfile: "Dockerfile.nginx"
+    volumes:
+      - ./user-svc.nginx.conf:/etc/nginx/http.d/user-svc.conf
+      - ./logs/nginx:/var/log/nginx
+    ports:
+      - 8080:8080
+      - 443:443
+    links:
+      - user-svc
+
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - 27017:27017
+
+  redis:
+    image: redis:latest
+    volumes:
+      - redis_data:/data
+    ports:
+      - 6379:6379
+
+volumes:
+  mongodb_data:
+  redis_data:
