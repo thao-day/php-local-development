@@ -1,4 +1,4 @@
-# Don't overcomplicate docker locally for PHP developer
+# Don't overcomplicate containerizing locally for PHP developer
 
 ## Overview
 This project uses Docker to create a development environment with PHP 8.1, Nginx, MongoDB, and Redis.
